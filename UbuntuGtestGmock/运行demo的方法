@@ -1,10 +1,11 @@
 编译并运行gtest or gmock案例的步骤
+    0)建立一个demo文件夹，在此文件夹下建两个文件夹src,include
     1)将.cpp文件放入建立的src文件夹中
     2)将.h文件放入建立的include文件夹中
-    3)编写一个CMakeLists.txt
+    3)编写一个CMakeLists.txt  （放在demo文件夹下）
     4)cmake CMakeLists.txt  #编译
-	    make					#生成可执行文件 demo 
-      ./demo				#运行demo
+      make    #生成可执行文件 demo 
+      ./demo    #运行demo
 
 
 附录：
