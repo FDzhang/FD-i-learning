@@ -1,1 +1,14 @@
+环境配置
+直接github下载最新版 
+https://github.com/google/googletest/tree/release-1.8.0（下载1.8.0）
 
+ubuntu下解压后
+执行以下命令
+  $ ./travis.sh
+  $ cmake ./CMakeLists.txt
+  $ make
+  $ sudo make install
+
+@ubuntu:/usr/local/include  (此文件夹下应有"gtest","gmock")
+@ubuntu:/usr/local/lib      (此文件夹下应有四个 ***.a 文件)
+若上面两处都如括号所描述，则环境搭建成功
