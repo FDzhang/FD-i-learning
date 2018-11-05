@@ -1,0 +1,13 @@
+运行win10,vs下gtest，gmock的demo的步骤
+
+运行gtest的demo的步骤
+  1）在vs中，创建或打开一个demo。
+  2）打开项目属性对话框，配置工程属性。展开“配置属性 -> C/C++ -> 常规”，在【附加包含目录】中添加“.\include”（相关母目录下的include）。
+  3）展开“C/C++ -> 代码生成”，在【运行库】中修改为多线程调试DLL(/MDd)。
+  4）展开“链接器 -> 输入”，在【附加依赖项】添加刚刚生成的lib文件路径，注意这里是配置Debug，要输入Win32-Debug里面的gtestd.lib文件路径（这里需要注意文件名后面有个d）。
+  5）以上就是配置Debug的方式，配置Release只需要把前边相对应的位置改为Release的相关内容即可。
+
+运行gmock的demo的步骤
+  1）在配置gtest工程属性的基础上
+  2）在【附加包含目录】中添加“.\include”（googlemock文件夹下的include）
+  3）在【附加依赖项】添加，googlemock生成的对应的.lib文件
