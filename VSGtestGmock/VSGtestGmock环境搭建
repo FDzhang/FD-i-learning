@@ -1,0 +1,19 @@
+win10下VS-GtestGmock环境搭建
+
+1下载源码
+到https://github.com/google/googletest/tree/release-1.8.1这个地址去下载
+
+2编译googletest源码生成我们需要的库文件
+	1）解压zip到合适目录，进入googletest
+	2）注意include和msvc这两个文件夹（会用到）
+	3）使用vs打开msvc/2010里面的gtest.sln，会提示升级VC++编译器和库，点击确定即可。
+	4）打开gtest项目属性，配置运行库为多线程调试DLL(/MDd)
+	5）Debug、Release两个模式都要编译。在编译时会出现“无法启动程序”字样，这是正常的，因为我们只是生成了相关的库文件，并不是可执行文件。
+	6）编译后，在msvc/2010/gtest/下有Win32-Debug、Win32-Release两个文件夹，并且每个文件夹里面有一个gtestd.lib文件。
+	7）至此，准备阶段完成。
+
+3编译googlemock源码生成我们需要的库文件
+	1）进入googlemock
+	2）用vs打开msvc下的.sln文件，会提示升级VC++编译器和库，点击确定即可。
+	3）打开gmock项目属性，配置运行库为多线程调试DLL(/MDd)
+	4）msvc下对应目录中，生成了gmock.lib文件，则成功
