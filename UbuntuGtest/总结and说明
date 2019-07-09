@@ -1,0 +1,59 @@
+参考的网址：http://ningning.today/2014/11/12/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91/ubuntu%E4%BD%BF%E7%94%A8gtest%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/
+			https://blog.csdn.net/sisopp/article/details/44775453
+			https://www.cnblogs.com/cv-pr/p/6206921.html
+			
+
+
+1，“linux下搭建gtest环境” 和 “ubuntu下搭建gtest环境” 是有所区别的（百度的结果不同）
+2，ubuntu下搭建gtest环境的一般步骤
+	1）sudo apt-get install libgtest-dev #（注意这一步只是安装源代码到/usr/src/gtest，需要用cmake构建Makefile然后再make生成静态库。）
+	2）	sudo apt-get install cmake    #安装cmake （已安装的话，可以省略）
+		cd /usr/src/gtest
+		mkdir build
+		cd build
+		cmake ..     # （即cmakeCMakeLists.txt）
+		make
+		sudo cp *.a /usr/lib/    #拷贝生成的库到/usr/lib/
+3，编译并运行一个gtest的案例（gcd.cpp)
+	1）g++ gcd.cpp -lgtest_main -lgtest -lpthread	#生成a.out
+	2) ./a.out   #运行a.out
+4, 在有多个文件的情况下，编译并运行gtest案例的步骤 （gcd.h;gcd.cpp;testgcd.cpp)
+	1) g++ gcd.cpp gcdtest.cpp -o mian -lgtest_main -lgtest -lpthread	#生成可执行文件 main
+	2）./main	#运行main
+5, 在较大工程中，编译并运行getest案例的步骤 （gcd.h;gcd.cpp;testgcd.cpp)
+	1）将.cpp文件放入建立的src文件夹中
+	2）将.h文件放入建立的include文件夹中
+	3）编写一个CMakeLists.txt
+	4）	cmake CMakeLists.txt  #编译
+		make					#生成可执行文件 demo 
+		./demo					#运行demo
+
+
+
+
+附录：
+1，cmakeCMakeLists.txt文件模板
+#1.cmake verson，指定cmake版本 
+cmake_minimum_required(VERSION 3.2)
+
+#2.project name，指定项目的名称，一般和项目的文件夹名称对应
+PROJECT(test_sqrt)
+
+#3.head file path，头文件目录
+INCLUDE_DIRECTORIES(
+include
+)
+
+#4.source directory，源文件目录
+AUX_SOURCE_DIRECTORY(src DIR_SRCS)
+
+#5.set environment variable，设置环境变量，编译用到的源文件全部都要放到这里，否则编译能够通过，但是执行的时候会出现各种问题，比如"symbol lookup error xxxxx , undefined symbol"
+SET(TEST_MATH
+${DIR_SRCS}
+)
+
+#6.add executable file，添加要编译的可执行文件
+ADD_EXECUTABLE(${PROJECT_NAME} ${TEST_MATH})
+
+#7.add link library，添加可执行文件所需要的库，比如我们用到了libm.so（命名规则：lib+name+.so），就添加该库的名称
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} m)
